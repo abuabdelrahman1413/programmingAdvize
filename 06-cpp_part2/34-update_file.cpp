@@ -33,7 +33,7 @@ void SaveVectorToFile(string filename, vector<string> vFiles)
 	}
 }
 
-void DeleteRecordFromFile(string filename, string record)
+void UpdateFile(string filename, string record, string newRecord)
 {
 	vector <string> vFileContent;
 	LoadDataFromFileToVector(filename, vFileContent);
@@ -41,7 +41,7 @@ void DeleteRecordFromFile(string filename, string record)
 	{
 		if(line == record)
 		{
-			line = "";
+			line = newRecord;
 		}
 	}
 	SaveVectorToFile(filename, vFileContent);
@@ -65,7 +65,7 @@ int main()
 	cout << "File content Before Delete.\n";
 	PrintFileContenet("myFile.txt");
 
-	DeleteRecordFromFile("myFile.txt", "Ali");
+	UpdateFile("myFile.txt", "ali", "Fdwa" );
 
 	cout << "File content After Delete.\n";
 	PrintFileContenet("myFile.txt");
