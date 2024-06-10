@@ -77,13 +77,14 @@ void SumMatrixColsInArray(int arr[3][3], int arrSum[3], int Row, int Col)
     }
 }
 
-void PrintEachColSum(int arr[3][3], int Row, int Col)
+void PrintColsSumArray(int arrSum[3], int Col)
 {
-    for(int i = 0; i < Col; i++)
-    {
-        cout << "Col " << i+1 << " sum = " << ColSum(arr, Row, i) << endl;
-    }
+   for(int i = 0; i < Col; i++)
+   {
+       cout << " Col " << i +1 << " sum is " << arrSum[i] << endl;
+   }
 }
+
 /**
 * main
 * Return 0
