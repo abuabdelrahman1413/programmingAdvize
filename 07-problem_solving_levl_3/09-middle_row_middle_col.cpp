@@ -34,21 +34,7 @@ void FillMatrixWithRandomNumbers(int arr[3][3], int Row, int Col)
 	}
 }
 
-void MiddleRow(int arr[3][3], int arrMidRow[3],int Row, int Col)
-{
-    for(int i = 0; i < Col; i++)
-    {
-        arrMidRow[i] = arr[1][i];
-    }
-}
 
-void MiddleCol(int arr[3][3], int arrMidCol[3],int Row, int Col)
-{
-    for(int i = 0; i < Row; i++)
-    {
-        arrMidCol[i] = arr[i][1];
-    }
-}
 
 
 
@@ -65,34 +51,39 @@ void PrintMatrix(int arr[3][3], int Row, int Col)
 	}
 }
 
-void PrintArray(int arr[3], int Size)
+void PrintMiddleRow(int arr[3][3], int Row, int Col)
 {
-	for(int i = 0; i < Size; i++)
-	{
-		printf(" %0*d  ", 2,arr[i]);
-	}
+    int MidRow = Row/2;
+    for(int j = 0; j < Col; j++)
+    {
+        printf(" %0*d  ", 2,arr[MidRow][j]);
+    }
 }
 
+void PrintMiddleColumn(int arr[3][3], int Row, int Col)
+{
+    int MidCol = Col/2;
+    for(int j = 0; j < Row; j++)
+    {
+        printf(" %0*d  ", 2,arr[j][MidCol]);
+    }
+}
 
 
 
 int main()
 {
     srand(unsigned(time(NULL)));
-    int arr1[3][3], arrMidleRow[3];
-    FillMatrixWithRandomNumbers(arr1, 3, 3);
+    int Matrix[3][3];
+    FillMatrixWithRandomNumbers(Matrix, 3, 3);
    
     cout << "Matrix 1:" << endl;
-    PrintMatrix(arr1, 3, 3);
-    cout << endl;
-    MiddleRow(arr1, arrMidleRow,3, 3);
-    cout << "Middle Row:" << endl;
-    PrintArray(arrMidleRow, 3);
-    cout << endl;
-    MiddleCol(arr1, arrMidleRow,3, 3);
-    cout << "Middle Col:" << endl;
-    PrintArray(arrMidleRow, 3);
-    cout << endl;
+    PrintMatrix(Matrix, 3, 3);
+    cout << "\nMiddle Row of matrix is: \n";
+    PrintMiddleRow(Matrix, 3, 3);
+    cout << "\nMiddle Column of matrix is: \n";
+    PrintMiddleColumn(Matrix, 3, 3);
+
    
 
     return 0;
