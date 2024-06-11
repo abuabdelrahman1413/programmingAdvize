@@ -7,7 +7,7 @@
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
-                "${file}",
+                "${file} /home/mohammed/Projects/programmingadvizeTut/07-problem_solving_levl_3/matrixLib.cpp",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}"
             ],

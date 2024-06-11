@@ -21,4 +21,5 @@ int ColSum(int arr[3][3], int Row, int Col);
 int RowSum(int arr[3][3], int RowNumber, int Col);
 int SumOfMatrix(int arr[3][3], int Row, int Col);
 bool CheckEqualMatrices (int SumMatrix1, int SumMatrix2);
+bool CheckTypicalMatrices (int arr1[3][3], int arr2[3][3], int Row, int Col);
 #endif // MATRIXLIB_H

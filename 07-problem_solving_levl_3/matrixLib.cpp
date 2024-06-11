@@ -152,3 +152,18 @@ bool CheckEqualMatrices (int SumMatrix1, int SumMatrix2)
 {
     return SumMatrix1 == SumMatrix2;
 }
+
+bool CheckTypicalMatrices (int arr1[3][3], int arr2[3][3], int Row, int Col)
+{
+    for(int i = 0; i < Row; i++)
+    {
+        for(int j = 0; j < Col; j++)
+        {
+            if(arr1[i][j] != arr2[i][j])
+            {
+                return false;
+            }
+        }
+    }
+    return true;
+}
