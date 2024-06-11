@@ -167,3 +167,24 @@ bool CheckTypicalMatrices (int arr1[3][3], int arr2[3][3], int Row, int Col)
     }
     return true;
 }
+
+bool CheckIdentittyMatrix(int arr[3][3], int Rows, int Cols)
+{
+    for(int i = 0; i < Rows; i++)
+    {
+        for(int j = 0; j < Cols; j++)
+        {
+            if(i == j)
+            {
+                if(arr[i][j] != 1)
+                    return false;
+            }
+            else
+            {
+                if(arr[i][j] != 0)
+                    return false;
+            }
+        }
+    }
+    return true;
+}
