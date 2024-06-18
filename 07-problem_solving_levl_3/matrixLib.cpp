@@ -11,10 +11,9 @@ using namespace std;
 * @param To
 * @return Random number
 */
-
-int RandomNumber (int From, int To)
+int RandomNumber(int From, int To)
 {
-	return (rand()%(To - From +1) + From);
+    return (rand() % (To - From + 1) + From);
 }
 
 /**
@@ -23,168 +22,160 @@ int RandomNumber (int From, int To)
 * @param Row
 * @param Col
 */
-
 void FillMatrixWithRandomNumbers(int arr[3][3], int Row, int Col)
-{
-	for(int i = 0; i < Row; i++)
-	{
-		for(int j = 0; j < Col; j++)
-		{
-			arr[i][j] = RandomNumber(1, 10);
-		}
-	}
-}
-
-
-
-
-
-void PrintMatrix(int arr[3][3], int Row, int Col)
-{
-	for(int i = 0; i < Row; i++)
-	{
-		for(int j = 0; j < Col; j++)
-		{
-            
-            printf(" %0*d  ", 2,arr[i][j]);
-		}
-		cout << endl;
-	}
-}
-
-void PrintMiddleRow(int arr[3][3], int Row, int Col)
-{
-    int MidRow = Row/2;
-    for(int j = 0; j < Col; j++)
-    {
-        printf(" %0*d  ", 2,arr[MidRow][j]);
-    }
-}
-
-void PrintMiddleColumn(int arr[3][3], int Row, int Col)
-{
-    int MidCol = Col/2;
-    for(int j = 0; j < Row; j++)
-    {
-        printf(" %0*d  ", 2,arr[j][MidCol]);
-    }
-}
-
-void PrintArray(int arr[3], int size)
-{
-    for(int i = 0; i < size; i++)
-    {
-        printf(" %0*d  ", 2,arr[i]);
-    }
-}
-
-
-void MultiplyMatrices(int arr1[3][3], int arr2[3][3], int arrResult[3][3], int Row, int Col)
 {
     for (int i = 0; i < Row; i++)
     {
         for (int j = 0; j < Col; j++)
         {
-            arrResult[i][j] = arr1[i][j] * arr2[i][j];
+            arr[i][j] = RandomNumber(1, 10);
         }
     }
 }
 
-void TrnsposeMatrix(int arr[3][3], int arrTransposed[3][3], int Row, int Col)
+// ... (rest of the functions)
+
+/**
+* Check if a matrix is a scalar matrix
+* @param arr - Matrix
+* @param Rows - Number of rows in the matrix
+* @param Cols - Number of columns in the matrix
+* @return true if the matrix is a scalar matrix, false otherwise
+*/
+bool CheckScalarMatrix(int arr[3][3], int Rows, int Cols)
 {
-    for(int i = 0; i < Row; i++)
+    for (int i = 0; i < Rows; i++)
     {
-        for(int j = 0; j < Col; j++)
+        for (int j = 0; j < Cols; j++)
         {
-            arrTransposed[i][j] = arr[j][i];
+            if (i == j && arr[i][j] != arr[i][j])
+                return false;
+
+            else if (i != j && arr[i][j] != 0)
+                return false;
         }
     }
+    return true;
 }
 
-void FillMatrixWithOrderdNumbers(int arr[3][3], int Row, int Col)
+int CountElementInMatrix(int arr[3][3], int Row, int Col, int element)
 {
-    int counter = 0;
-    for(int i = 0; i < Row; i++)
-    {
-        for(int j = 0; j < Col; j++)
-        {
-            counter++;
-            arr[i][j] = counter;
-        }
-    }
-}
-
-int ColSum(int arr[3][3], int Row, int Col)
-{
-    int Sum = 0;
-    for(int i = 0; i < Row; i++)
-    {
-        Sum += arr[i][Col];
-    }
-    return (Sum);
-}
-
-int RowSum(int arr[3][3], int RowNumber, int Col)
-{
-	int sum = 0;
-	for(int i = 0; i < Col; i++)
-	{
-		sum += arr[RowNumber][i];
-	}
-	return sum;
-}
-
-int SumOfMatrix(int arr[3][3], int Row, int Col)
-{
-    int Sum = 0;
-    for(int i = 0; i < Row; i++)
+	int Count = 0;
+    for (int i = 0; i < Row; i++)
     {
         for (int j = 0; j < Col; j++)
         {
-            Sum = Sum + arr[i][j];
+	    if (arr[i][j] == element)
+	    {
+		Count++;
+	    }
+
         }
-        
     }
-    return Sum;
+    return Count;
 }
 
-bool CheckEqualMatrices (int SumMatrix1, int SumMatrix2)
+void PrintMatrix(int Matrix[3][3],int Rows , int Cols)
 {
-    return SumMatrix1 == SumMatrix2;
-}
-
-bool CheckTypicalMatrices (int arr1[3][3], int arr2[3][3], int Row, int Col)
-{
-    for(int i = 0; i < Row; i++)
+    for (int i = 0; i < Rows; i++)
     {
-        for(int j = 0; j < Col; j++)
-        {
-            if(arr1[i][j] != arr2[i][j])
-            {
-                return false;
-            }
-        }
+	for (int j = 0; j < Cols; j++)
+	{
+	    cout << setw(3) << Matrix[i][j] << " ";
+	}
+	cout << endl;
     }
-    return true;
 }
 
-bool CheckIdentittyMatrix(int arr[3][3], int Rows, int Cols)
+bool IsSparseMatrix(int arr[3][3], int Row, int Col)
 {
-    for(int i = 0; i < Rows; i++)
-    {
-        for(int j = 0; j < Cols; j++)
-        {
-            if(i == j)
-            {
-                if(arr[i][j] != 1)
-                    return false;
-            }
-            else
-            {
-                if(arr[i][j] != 0)
-                    return false;
-            }
-        }
-    }
-    return true;
+	int Zeros = CountElementInMatrix(arr, Row, Col, 0);
+	if(Zeros > Row*Col/2)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+bool isElemntExist(int arr[3][3], int Row, int Col, int element)
+{
+	for (int i = 0; i < Row; i++)
+	{
+		for (int j = 0; j < Col; j++)
+		{
+			if (arr[i][j] == element)
+			{
+				return true;
+			}
+		}
+	}
+	return false;
+}
+void IntersectedNumbers(int Matrix1[3][3], int Matrix2[3][3], int Row, int Col)
+{
+
+	for (int i = 0; i < Row; i++)
+	{
+		for (int j = 0; j < Col; j++)
+		{
+			if (isElemntExist(Matrix2, 3, 3, Matrix1[i][j]))
+			{
+				cout << Matrix1[i][j] << " ";
+			}
+		}
+	}
+}
+int MinNumberInMatrix(int arr[3][3], int Row, int Col)
+{
+	int Min = arr[0][0];
+	for (int i = 0; i < Row; i++)
+	{
+		for (int j = 0; j < Col; j++)
+		{
+			if (arr[i][j] < Min)
+			{
+				Min = arr[i][j];
+			}
+		}
+	}
+	return Min;
+}
+
+int MaxNumberInMatrix(int arr[3][3], int Row, int Col)
+{
+	int Max = arr[0][0];
+	for (int i = 0; i < Row; i++)
+	{
+		for (int j = 0; j < Col; j++)
+		{
+			if (arr[i][j] > Max)
+			{
+				Max = arr[i][j];
+			}
+		}
+	}
+	return Max;
+}
+
+bool IsPalindrome(int Array[100],int LengthOfArray)
+{
+	for (int i=0; i <= LengthOfArray / 2; i++)
+	{
+		if (Array[i] != Array[LengthOfArray -i -1])
+			return false;
+	}
+	return true;
+}
+
+bool isPalindromeMatrix(int matrix[3][3], int Row, int Col)
+{
+	for(int i = 0; i < Row; i++)
+	{
+		if(!IsPalindrome(matrix[i], 3))
+			return false;
+	}
+	return true;
 }
