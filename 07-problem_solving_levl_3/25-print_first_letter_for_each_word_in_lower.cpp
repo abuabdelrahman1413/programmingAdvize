@@ -12,13 +12,13 @@ string ReadString()
 	return str;
 }
 
-string upperFirstLetterForEachWorld(string str)
+string lowerFirstLetterForEachWorld(string str)
 {
 	bool isFirstLetter = true;
 	for(short i = 0; i < str.length(); i++)
 	{
 		if(str[i] != ' ' && isFirstLetter)
-			str[i] = toupper(str[i]);
+			str[i] = tolower(str[i]);
 		isFirstLetter = (str[i] == ' ' ? true : false);
 	}
 	return str;
@@ -28,7 +28,7 @@ int main()
 {
 	string str = ReadString();
 	cout << "\nString after conversion:\n";
-	str = upperFirstLetterForEachWorld(str);
+	str = lowerFirstLetterForEachWorld(str);
 	cout << str << endl;
 	return 0;
 }
