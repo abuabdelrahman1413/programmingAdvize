@@ -8,6 +8,9 @@
 		"CodeGPT.apiKey": "Google AI Studio",
 		"files.associations": {
 			"ostream": "cpp"
-		}
+		},
+		"CodeGPT.Autocomplete.provider": "Ollama - codegpt/replit-code-v1_5-3b",
+		"CodeGPT.Autocomplete.maxTokens": 976,
+		"CodeGPT.Autocomplete.suggestionDelay": 5100
 	}
 }
