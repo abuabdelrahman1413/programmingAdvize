@@ -31,6 +31,23 @@ string ReadString()
 
 void printEachWordInstring(string str)
 {
+	string delm = " ";
+	short pos = 0;
+	string word;
+	while ((pos = str.find(delm)) != std::string::npos)
+	{
+		word = str.substr(0, pos);
+		if (word != " ")
+		{
+			cout << word << endl;
+		}
+
+		str = str.erase(0, pos + delm .length());
+	}
+	if (str != "")
+	{
+		cout << str << endl;
+	}
 
 }
 
