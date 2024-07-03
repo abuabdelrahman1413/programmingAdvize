@@ -23,7 +23,7 @@ void firstLetter(string str)
 			}
 
 			isFirstLetter = (str[i] == ' ' ? true : false);
-		}
+	}
 }
 
 int main()
