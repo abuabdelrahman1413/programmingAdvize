@@ -23,26 +23,23 @@ vector<string> split(string str, string delim)
 		{
 			vSplit.push_back(word);
 		}
-		str.erase(0, pos + delim.length());
+		str = str.erase(0, pos + delim.length());
 	}
 	if (str != "")
 	{
-		vSplit.push_back(str);
+		vSplit.push_back(word);
 	}
 	return vSplit;
 }
 
 
+
+
 int main()
 {
 	string str = ReadString();
-	string delim = " ";
 	vector<string> vString;
-	vString = split(str, delim);
-	cout << "Tokens: " << vString.size() << endl;
-	for (string &word : vString)
-	{
-		cout << word << endl;
-	}
+	split(str, " ");
+	
 	return 0;
 }
