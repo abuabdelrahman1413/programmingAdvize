@@ -4,7 +4,7 @@
 #include <vector>
 using namespace std;
 
-string joinString(vector<string> vString, string delim){
+string joinString(vector<string> vString, string delim) {
 	string str;
 	for(string &word : vString){
 		str = str + word + delim;

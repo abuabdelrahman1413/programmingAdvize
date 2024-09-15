@@ -8,7 +8,7 @@ using namespace std;
 struct sClient
 {
     string AccountNumber;
-    string price;
+    string pin;
     string Name;
     string phone;
     double AccountBalance;
@@ -28,8 +28,8 @@ sClient ReadNewClient()
     cout << "Enter Account Number: ";
     getline(cin>>ws, client.AccountNumber);
     
-    cout << "Enter Price: ";
-    getline(cin, client.price);
+    cout << "Enter Pin: ";
+    getline(cin, client.pin);
     
     cout << "Enter Name: ";
     getline(cin, client.Name);
@@ -58,7 +58,7 @@ string ConvertClientToLine(sClient client)
 {
     vector<string> vString;
     vString.push_back(client.AccountNumber);
-    vString.push_back(client.price);
+    vString.push_back(client.pin);
     vString.push_back(client.Name);
     vString.push_back(client.phone);
     vString.push_back(to_string(client.AccountBalance));
