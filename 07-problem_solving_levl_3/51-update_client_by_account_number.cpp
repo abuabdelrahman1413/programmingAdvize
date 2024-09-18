@@ -197,8 +197,9 @@ bool UpdateClientByAccountNumber(vector<sClient> &vClients, string AccountNumber
     else
     {
         cout << "\n\nClient not found!";
-        return false;
     }
+        return false;
+
 }
 
 
