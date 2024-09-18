@@ -26,7 +26,8 @@ sClient ReadNewClient()
 {
     sClient client;
     cout << "Enter Account Number: ";
-    getline(cin>>ws, client.AccountNumber);
+    cin.ignore();  // Ignoring leftover whitespaces or newlines
+    getline(cin, client.AccountNumber);
     
     cout << "Enter Pin: ";
     getline(cin, client.pin);
@@ -67,26 +68,24 @@ string ConvertClientToLine(sClient client)
 
 void AddDataToFile(string file, string line)
 {
-    
-	fstream myFile;
-	myFile.open(file, ios::out | ios::app); // write mode
+    fstream myFile;
+    myFile.open(file, ios::out | ios::app); // write mode
 
-	if(myFile.is_open())
-	{
-		myFile << line;
+    if (myFile.is_open())
+    {
+        myFile << line;
         myFile << "\n";
-		myFile.close();
-	}
+        myFile.close();
+    }
 }
 
-
 void AddNewClient()
-{   string file = "clients.txt";
+{
+    string file = "clients.txt";
     sClient Client;
     Client = ReadNewClient();
     AddDataToFile(file, ConvertClientToLine(Client));
 }
-
 
 void AddClients()
 {
@@ -94,18 +93,17 @@ void AddClients()
 
     do
     {
-        // clear screen
-        system("clear");
+        system("clear");  // For Unix-based systems, clear the console
         cout << "Adding New Clients:\n\n";
 
         AddNewClient();
 
-        cout << "\nClient Added successfully, do you want to add more clints?";
+        cout << "\nClient Added successfully, do you want to add more clients? (Y/N): ";
         cin >> AddMore;
-    } while(toupper(AddMore) == 'Y');
+    } while (toupper(AddMore) == 'Y');
 }
 
-int main(void)
+int main()
 {
     AddClients();
     return 0;

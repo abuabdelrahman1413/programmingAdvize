@@ -15,6 +15,7 @@ struct sClient
     string phone;
     double AccountBalance;
     bool MarkForDelete = false;
+
 };
 
 string ReadClientNumber()
@@ -105,18 +106,6 @@ bool FindClientByNum(vector<sClient> vClients, string ClientNum, sClient &Client
     return false;
 }
 
-bool MarkClientForDeleteByAccountNumber(vector<sClient> &vClients, string AccountNumber)
-{
-    for (sClient &Clinet: vClients)
-    {
-        if (Clinet.AccountNumber == AccountNumber)
-        {
-            Clinet.MarkForDelete = true;
-            return true;
-        }
-    }
-    return false;
-}
 
 string joinString(vector<string> vString, string delim) {
 	string str;
@@ -158,23 +147,50 @@ vector <sClient> SaveClientsDataToFile(vector<sClient> vClients, string FileName
     return vClients;
 }
 
-bool DeleteClientByAccountNumber(vector<sClient> &vClients, string AccountNumber)
+sClient ChangeClientData(string AccountNumber)
+{
+    sClient client;
+    client.AccountNumber = AccountNumber;
+    
+    cout << "Enter Pin: ";
+    getline(cin, client.pin);
+    
+    cout << "Enter Name: ";
+    getline(cin, client.Name);
+    
+    cout << "Enter Phone: ";
+    getline(cin, client.phone);
+    
+    cout << "Enter Account Balance: ";
+    string balanceStr;
+    getline(cin, balanceStr);
+    client.AccountBalance = stod(balanceStr);
+    return client;
+
+}
+
+bool UpdateClientByAccountNumber(vector<sClient> &vClients, string AccountNumber)
 {
     sClient Client;
     char Answer = 'n';
     if (FindClientByNum(vClients, AccountNumber, Client))
     {
         print(Client);
-        cout << "\n\nAre you sure you want to delete this client? (y/n): ";
+        cout << "\n\nAre you sure you want to update this client? (y/n): ";
         cin >> Answer;
         if (Answer == 'y' || Answer == 'Y')
         {
-            MarkClientForDeleteByAccountNumber(vClients, AccountNumber);
+            for(sClient &client: vClients)
+            {
+                if(client.AccountNumber == AccountNumber)
+                {
+                    client = ChangeClientData(AccountNumber);
+                    break;
+                }
+            }
             SaveClientsDataToFile(vClients, ClientsFileName);
-
-            // Refresh the vector after delete
-            vClients = LoadClientsDataFromFile(ClientsFileName);
-            cout << "\n\nClient deleted successfully!";
+            // Refresh 
+            cout << "\n\nClient updated successfully!";
             return true;
         }
     }
@@ -191,7 +207,7 @@ int main(void)
     vector <sClient> vClients = LoadClientsDataFromFile(ClientsFileName);
     string AccountNumber = ReadClientNumber();
 
-    DeleteClientByAccountNumber(vClients, AccountNumber);
+    UpdateClientByAccountNumber(vClients, AccountNumber);
 
     return 0;
 }
