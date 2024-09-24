@@ -5,6 +5,7 @@
 #include <fstream>
 #include <iomanip>
 using namespace std;
+
 enum enMainMenuOptions
 {
     eShowClientList = 1,
@@ -14,8 +15,6 @@ enum enMainMenuOptions
     eFindClient = 5,
     eExit = 6
 };
-void ShowMainMenu();
-const string ClientsFileName = "clients.txt";
 
 struct sClient
 {
@@ -24,7 +23,73 @@ struct sClient
     string Name;
     string phone;
     double AccountBalance;
+    bool MarkForDelete = false;
 };
+void ShowMainMenu();
+
+vector<string> SplitString(string str, string sep)
+{
+    vector<string> vString;
+    size_t pos = 0;
+    string word = "";
+    while ((pos = str.find(sep)) != std::string::npos)
+    {
+        word = str.substr(0, pos);
+        if (word != "")
+        {
+            vString.push_back(word);
+        }
+
+        str.erase(0, pos + sep.length());
+    }
+
+    if (str != "")
+    {
+        vString.push_back(str);
+    }
+    return vString;
+}
+
+sClient ConvertLineToRecord(string Line, string Sperator = "#//#")
+{
+    sClient Clinet;
+    vector<string> vClinetData;
+    vClinetData = SplitString(Line, Sperator);
+    Clinet.AccountNumber = vClinetData[0];
+    Clinet.pin = vClinetData[1];
+    Clinet.Name = vClinetData[2];
+    Clinet.phone = vClinetData[3];
+    Clinet.AccountBalance = stod(vClinetData[4]);
+
+    return Clinet;
+}
+
+vector<sClient> LoadClientsDataFromFile(string FileName)
+{
+    vector<sClient> vClients;
+    fstream MyFile;
+    MyFile.open(FileName, ios::in); // read mode
+
+    if (MyFile.is_open())
+    {
+        string Line;
+        sClient Client;
+
+        while (getline(MyFile, Line))
+        {
+            Client = ConvertLineToRecord(Line);
+            vClients.push_back(Client);
+        }
+        MyFile.close();
+    }
+    return vClients;
+}
+
+
+
+const string ClientsFileName = "clients.txt";
+
+
 void print(sClient client)
 {
     cout << "Account Number: " << client.AccountNumber << endl;
@@ -33,12 +98,32 @@ void print(sClient client)
     cout << "Phone: " << client.phone << endl;
     cout << "Account Balance: " << client.AccountBalance << endl;
 }
+
+bool ClientExistByAccountNumber(string AccountNumber, string FileName)
+{
+	vector<sClient> vClients = LoadClientsDataFromFile(FileName);
+	for (sClient &client : vClients)
+	{
+		if (client.AccountNumber == AccountNumber)
+		{
+			return true;
+		}
+	}
+	return false;
+
+}
+
 sClient ReadNewClient()
 {
     sClient client;
     cout << "Enter Account Number: ";
     cin.ignore();  // Ignoring leftover whitespaces or newlines
     getline(cin, client.AccountNumber);
+    while (ClientExistByAccountNumber(client.AccountNumber, ClientsFileName))
+    {
+		cout << "\nClient with this Account Number already exists, please enter a new Account Number: ";
+		getline(cin, client.AccountNumber);
+    }
 
     cout << "Enter Pin: ";
     getline(cin, client.pin);
@@ -111,63 +196,7 @@ void AddNewClients()
         cin >> AddMore;
     } while (toupper(AddMore) == 'Y');
 }
-vector<string> SplitString(string str, string sep)
-{
-    vector<string> vString;
-    size_t pos = 0;
-    string word = "";
-    while ((pos = str.find(sep)) != std::string::npos)
-    {
-        word = str.substr(0, pos);
-        if (word != "")
-        {
-            vString.push_back(word);
-        }
 
-        str.erase(0, pos + sep.length());
-    }
-
-    if (str != "")
-    {
-        vString.push_back(str);
-    }
-    return vString;
-}
-
-sClient ConvertLineToRecord(string Line, string Sperator = "#//#")
-{
-    sClient Clinet;
-    vector<string> vClinetData;
-    vClinetData = SplitString(Line, Sperator);
-    Clinet.AccountNumber = vClinetData[0];
-    Clinet.pin = vClinetData[1];
-    Clinet.Name = vClinetData[2];
-    Clinet.phone = vClinetData[3];
-    Clinet.AccountBalance = stod(vClinetData[4]);
-
-    return Clinet;
-}
-
-vector<sClient> LoadClientsDataFromFile(string FileName)
-{
-    vector<sClient> vClients;
-    fstream MyFile;
-    MyFile.open(FileName, ios::in); // read mode
-
-    if (MyFile.is_open())
-    {
-        string Line;
-        sClient Client;
-
-        while (getline(MyFile, Line))
-        {
-            Client = ConvertLineToRecord(Line);
-            vClients.push_back(Client);
-        }
-        MyFile.close();
-    }
-    return vClients;
-}
 
 void PrintClientRecord(sClient Client)
 {
@@ -249,6 +278,11 @@ void ShowAddNewClientScreen()
     cout << "\t\tAdd New Client Screen\n";
     cout << "=======================================================\n";
     AddNewClients();
+}
+
+void ShowDeleteClientScreen()
+{
+
 }
 void PerformMainMenuOption(enMainMenuOptions MainMenuOption)
 {
