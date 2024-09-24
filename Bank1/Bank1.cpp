@@ -232,6 +232,48 @@ void PrintAllClientsData(vector<sClient> vClients)
     cout << "_____________________________________________________\n\n";
 }
 
+void SaveClientsDataToFile(vector<sClient> vClients, string FileName)
+{
+	fstream MyFile;
+	MyFile.open(FileName, ios::out); // write mode
+	string DataLine;
+	if (MyFile.is_open())
+	{
+		for (sClient Client : vClients)
+		{
+			if (Client.MarkForDelete == false)
+			{
+				DataLine = ConvertClientToLine(Client);
+				MyFile << DataLine << endl;
+			}
+		}
+		MyFile.close();
+	}
+}
+
+void MarkClientForDeleteByAccountNumber()
+{
+	vector<sClient> vClients = LoadClientsDataFromFile(ClientsFileName);
+	string AccountNumber;
+	cout << "Enter Account Number to delete: ";
+	cin >> AccountNumber;
+	for (sClient& Client : vClients)
+	{
+		if (Client.AccountNumber == AccountNumber)
+		{
+			Client.MarkForDelete = true;
+			break;
+		}
+	}
+	SaveClientsDataToFile(vClients, ClientsFileName);
+}
+
+void DeleteClientByAccountNumber()
+{
+	MarkClientForDeleteByAccountNumber();
+    cout << "Client deleted successfully!";
+}
+
 short ReadMainMenuOption()
 {
     short Option;
@@ -282,7 +324,10 @@ void ShowAddNewClientScreen()
 
 void ShowDeleteClientScreen()
 {
-
+    cout << "\n=======================================================\n";
+    cout << "\t\Delete Client Screen\n";
+    cout << "=======================================================\n";
+    DeleteClientByAccountNumber();
 }
 void PerformMainMenuOption(enMainMenuOptions MainMenuOption)
 {
@@ -302,6 +347,13 @@ void PerformMainMenuOption(enMainMenuOptions MainMenuOption)
         GoBackToMainMenu();
         break;
     }
+	case enMainMenuOptions::eDeleteClient:
+	{
+		system("cls");
+		ShowDeleteClientScreen();
+		GoBackToMainMenu();
+		break;
+	}
     default:
     {
         break;
