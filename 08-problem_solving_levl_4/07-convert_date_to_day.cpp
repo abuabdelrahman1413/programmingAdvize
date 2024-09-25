@@ -32,6 +32,8 @@ int main()
 	month = ReadNumber("Enter month: ");
 	year = ReadNumber("Enter year: ");
 	cout << "\n\n--------------------------------\n";
+	PrintDate(day, month, year);
+	cout << "\n\n--------------------------------\n";
 	short day_date = ConvertDateToDay(day, month, year);
 	cout << "Day order: " << day_date << endl;
 	switch (day_date) {

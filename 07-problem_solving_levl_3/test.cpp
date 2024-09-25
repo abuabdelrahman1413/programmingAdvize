@@ -3,25 +3,49 @@
 #include <string>
 using namespace std;
 
-int main(void) {
-	vector <string> vString;
-	string str = "Hello World!";
+string ReadString(string messages = "")
+{
+	string str;
+	cout << "\nPleae Enter a string: ";
+	getline(cin, str);
+	return str;
+}
+
+vector<string> SplitString(string str)
+{
 	string delim = " ";
-	string word;
-	while (str.find(delim) != string::npos)
+	short Pos = 0;
+	string word ;
+	vector<string> vWords;
+	while ((Pos = str.find(delim)) != std::string::npos)
 	{
-		word = str.substr(0, str.find(delim));
-		vString.push_back(word);
-		str = str.erase(0, str.find(delim) + delim.length());
+		word = str.substr(0, Pos);
+		if (word != " ")
+		{
+			vWords.push_back(word);
+		}
+		
+		str = str.erase(0, Pos + delim.length());
 	}
 	
 	if (str != "")
 	{
-		vString.push_back(str);
+		vWords.push_back(word);
 	}
+	return vWords;
 	
-	for (int i = 0; i < vString.size(); i++)
+}
+
+void PrintVector(vector<string> &vWords)
+{
+	for (string &word : vWords)
 	{
-		cout << vString[i] << endl;
+		cout << word << endl;
 	}
+}
+
+int main(void)
+{
+	vector<string>vWords = SplitString(ReadString());
+	PrintVector(vWords);
 }
