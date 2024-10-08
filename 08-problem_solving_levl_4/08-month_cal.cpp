@@ -13,6 +13,38 @@ short ReadNumber(string message)
 	return number;
 }
 
+bool isLeapYear(int Year) {
+  return Year % 4 == 0 && Year % 100 != 0 || Year % 400 == 0;
+}
+
+string MonthShortName(short Month)
+{
+	string Months[12] = {
+		"Jan", "Feb", "Mar",
+		"Apr", "May", "Jun",
+		"Jul", "Aug", "Sep",
+		"Oct", "Nov", "Dec"};
+	return Months[Month - 1];
+}
+
+int NumberOfDaysInAMonth(short Month, short Year) {
+  if (Month < 1 || Month > 12) return -1;
+  int NumberOfDaysInMonth[12] = {31, 28, 31, 30, 31, 30,
+                                 31, 31, 30, 31, 30, 31};
+  return (Month == 2) ? (isLeapYear(Year) ? 29 : 28)
+                      : NumberOfDaysInMonth[Month - 1];
+}
+
+int DayOfWeekOrder(short Day, short Month, short Year)
+{
+	short a, y, m;
+	a = (14 - Month) / 12;
+	y = Year - a;
+	m = Month + 12 * a - 2;
+	int d = (Day + y + y / 4 - y / 100 + y / 400 + (31 * m) / 12) % 7;
+	return d;
+}
+
 void PrintMonthCalendar(short Month, short Year)
 {
 	int NumberOfDays;
@@ -23,8 +55,32 @@ void PrintMonthCalendar(short Month, short Year)
 	// Print the current month name
 	printf("\n ______________%s_____________\n\n",
 	       MonthShortName(Month).c_str());
+		   // c_str()  convert std::string to c-style string
 
 	// Print the columns
+	printf(" Sun  Mon  Tue  Wed  Thu  Fri  Sat\n");
+
+	// print appropriate number of spaces
+	int i;
+	for (i = 0; i < current; i++)
+		printf("     ");
+
+	// print the days of the month
+	for (int j = 1; j <= NumberOfDays; j++)
+	{
+		printf("%4d", j);
+		// %4d  print integer with 4 spaces
+
+		if (++i == 7)
+		{
+			// every 7 days start a new line
+			i = 0;
+			printf("\n");
+		}
+	}
+
+		printf("\n _____________________________\n\n");
+
 }
 
 int main(void)
@@ -33,5 +89,6 @@ int main(void)
 	short Month = ReadNumber("Enter month: ");
 
 	PrintMonthCalendar(Month, Year);
+	system("pause>0");
 	return (0);
 }
