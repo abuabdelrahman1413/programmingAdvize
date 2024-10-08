@@ -73,7 +73,8 @@ short DayOrderInYear(short day, short month, short year)
 
 bool IsDate1LessThanDate2(sDate Date1, sDate Date2)
 {
-    return (Date1.Year < Date2.Year ? true : ((Date1.Year == Date2.Year ? (Date1.Month < Date2.Month ? true: (Date1.Month == Date2.Month ? Date1.Day < Date2.Day : false)) : false)));
+    return (Date1.Year < Date2.Year) ? true : ((Date1.Year == Date2.Year) ? (Date1.Month < Date2.Month ? true : (Date1.Month == Date2.Month ? Date1.Day < Date2.Day : false)) : false);
+
 }
 
 int main()
