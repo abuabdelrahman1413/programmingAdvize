@@ -1,0 +1,6 @@
+.ccls-cache/
+.vs/
+*.pdb
+*.obj
+*.exe
+*.ilk
