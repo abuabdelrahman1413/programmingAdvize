@@ -1,6 +1,0 @@
-BasedOnStyle: Google
-IndentWidth: 8
-UseTab: Always
-BreakBeforeBraces: Linux
-AllowShortFunctionsOnASingleLine: None
-ColumnLimit: 80
