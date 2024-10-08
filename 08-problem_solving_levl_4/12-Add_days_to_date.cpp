@@ -69,29 +69,29 @@ short DayOrderInYear(short day, short month, short year)
 
 sDate DateAfterAddingDays(sDate Date, short DaysToAdd)
 {
-    short RemainingDays = DaysToAdd + DayOrderInYear(Date.Day, Date.Month, Date.Year);
-    short Month = 1;
+    short RemainigDays = DaysToAdd + DayOrderInYear(Date.Day, Date.Month, Date.Year);
+    Date.Month = 1;
     while (true)
     {
-        if (RemainingDays > NumberOfDaysInMonth(Date.Year, Month))
+        if (RemainigDays > NumberOfDaysInMonth(Date.Year, Date.Month))
         {
-            RemainingDays -= NumberOfDaysInMonth(Date.Year, Month);
-            Month++;
-            if (Month > 12)
+            RemainigDays -= NumberOfDaysInMonth(Date.Year, Date.Month);
+            Date.Month++;
+
+            if (Date.Month > 12)
             {
-                Month = 1;
-                Date.Year++;
+                Date.Month = 1;
+                Date.Year += 1;
             }
         }
+
         else
         {
-            Date.Day = RemainingDays;
+            Date.Day = RemainigDays;
             break;
         }
     }
-
     return Date;
-    
 }
 
 int main()
