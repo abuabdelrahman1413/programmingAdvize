@@ -1,10 +1,8 @@
-.ccls-cache/
-.vs/
-*.pdb
-*.obj
-*.exe
-*.ilk
-0
-.vscode/
+# Ignore everything
 *
+
+
+# Do not ignore C++ files
 !*.cpp
+!*.hpp
+!*.h
