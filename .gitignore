@@ -1,8 +1,0 @@
-# Ignore everything
-*
-
-
-# Do not ignore C++ files
-!*.cpp
-!*.hpp
-!*.h
