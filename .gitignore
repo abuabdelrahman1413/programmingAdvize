@@ -6,3 +6,5 @@
 *.ilk
 0
 .vscode/
+*
+!*.cpp
