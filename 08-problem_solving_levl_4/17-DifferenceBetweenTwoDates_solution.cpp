@@ -111,6 +111,13 @@ short DifferenceInDays(sDate Date1, sDate Date2, bool IncludeEndDay = false)
         Date1 = IncreaseDateByOneDay(Date1);
     }
 
+    while (IsDate1LessThanDate2(Date2, Date1))
+    {
+        DiffereceInDays--;
+        Date2 = IncreaseDateByOneDay(Date2);
+    }
+    
+
     return IncludeEndDay ? ++DiffereceInDays : DiffereceInDays;
 }
 
@@ -124,6 +131,7 @@ int main()
 
     cout << "\n\nDifference in days: " << DifferenceInDays(Date1, Date2) << endl;
     cout << "\n\nDifference in days including End day: " << DifferenceInDays(Date1, Date2, true) << endl;
-    system("pause>0");
+    // system("pause>0");
+    cin.get();
     return 0;
 }
