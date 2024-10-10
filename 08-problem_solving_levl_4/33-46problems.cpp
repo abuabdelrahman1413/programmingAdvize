@@ -2,15 +2,13 @@
 #include <string>
 using namespace std;
 
-struct sDate
-{
+struct sDate {
   long Year;
   long Month;
   long Day;
 };
 
-short ReadNumber(string str = "")
-{
+short ReadNumber(string str = "") {
   int Number;
   cout << str;
   cin >> Number;
@@ -18,8 +16,7 @@ short ReadNumber(string str = "")
   return Number;
 }
 
-sDate ReadDate()
-{
+sDate ReadDate() {
   sDate Date;
 
   Date.Year = ReadNumber("Enter a year: ");
@@ -29,13 +26,11 @@ sDate ReadDate()
   return Date;
 }
 
-bool isLeap(short Year)
-{
+bool isLeap(short Year) {
   return Year % 4 == 0 && Year % 100 != 0 || Year % 400 == 0;
 }
 
-int NumberOfDaysInMonth(int Year, int Month)
-{
+int NumberOfDaysInMonth(int Year, int Month) {
   if (Month < 1 || Month > 12)
     return -1;
   int NumberOfDaysInMonth[12] = {31, 28, 31, 30, 31, 30,
@@ -44,8 +39,7 @@ int NumberOfDaysInMonth(int Year, int Month)
                       : NumberOfDaysInMonth[Month - 1];
 }
 
-bool isLastDayInMonth(sDate Date)
-{
+bool isLastDayInMonth(sDate Date) {
   short DaysInMonth = NumberOfDaysInMonth(Date.Year, Date.Month);
   return Date.Day == DaysInMonth;
 }
@@ -54,63 +48,47 @@ bool isLastMonth(short Month) { return Month == 12; }
 
 bool isFirstMonth(short Month) { return Month == 1; }
 
-bool isFirstDayInMonth(short Day)
-{
-  return Day == 1;
-}
+bool isFirstDayInMonth(short Day) { return Day == 1; }
 
-sDate DecreaseDateByOneDay(sDate Date)
-{
-  if (isFirstDayInMonth(Date.Day))
-  {
-    if (isFirstMonth(Date.Month))
-    {
+sDate DecreaseDateByOneDay(sDate Date) {
+  if (isFirstDayInMonth(Date.Day)) {
+    if (isFirstMonth(Date.Month)) {
       Date.Day = NumberOfDaysInMonth(Date.Year - 1, 12);
       Date.Month = 1;
       Date.Year--;
-    }
-    else
-    {
+    } else {
       Date.Day = NumberOfDaysInMonth(Date.Year, Date.Month - 1);
       Date.Month--;
     }
-  }
-  else
-  {
+  } else {
     Date.Day--;
   }
 
   return Date;
 }
 
-sDate DecreaseDateByNumberOfDays(sDate Date, int Days)
-{
+sDate DecreaseDateByNumberOfDays(sDate Date, int Days) {
   sDate NextDate;
   NextDate = Date;
-  for (int i = 0; i < Days; i++)
-  {
+  for (int i = 0; i < Days; i++) {
     NextDate = DecreaseDateByOneDay(NextDate);
   }
   return NextDate;
 }
 
-sDate DecreaseDateByOneWeek(sDate Date)
-{
+sDate DecreaseDateByOneWeek(sDate Date) {
   sDate NextDate;
   NextDate = Date;
-  for (int i = 0; i < 7; i++)
-  {
+  for (int i = 0; i < 7; i++) {
     NextDate = DecreaseDateByOneDay(NextDate);
   }
   return NextDate;
 }
 
-sDate DecreaseDateByNumberOfWeeks(sDate Date, int Weeks)
-{
+sDate DecreaseDateByNumberOfWeeks(sDate Date, int Weeks) {
   sDate NextDate;
   NextDate = Date;
-  for (int i = 0; i < Weeks; i++)
-  {
+  for (int i = 0; i < Weeks; i++) {
     NextDate = DecreaseDateByOneWeek(NextDate);
   }
   return NextDate;
@@ -118,104 +96,85 @@ sDate DecreaseDateByNumberOfWeeks(sDate Date, int Weeks)
 
 // أصعب دالة
 
-
-sDate DecreaseDateByOneMonth(sDate Date)
-{
-  if (Date.Month = 12)
-  {
-    Date.Month = 1;
-    Date.Year++;
-  }
-  else
-  {
-    Date.Month++;
+sDate DecreaseDateByOneMonth(sDate Date) {
+  if (Date.Month = 1) {
+    Date.Month = 12;
+    Date.Year--;
+  } else {
+    Date.Month--;
   }
 
   short NumberOfDaysInCurrentMonth = NumberOfDaysInMonth(Date.Year, Date.Month);
-  if (Date.Day > NumberOfDaysInCurrentMonth)
-  {
+  if (Date.Day > NumberOfDaysInCurrentMonth) {
     Date.Day = NumberOfDaysInCurrentMonth;
-  }
-  else
-  {
+  } else {
     Date.Day = Date.Day;
   }
 
   return Date;
 }
 
-sDate DecreaseDateByNumberOfMonths(sDate Date, int Months)
-{
+sDate DecreaseDateByNumberOfMonths(sDate Date, int Months) {
   sDate NextDate;
   NextDate = Date;
-  for (int i = 0; i < Months; i++)
-  {
+  for (int i = 0; i < Months; i++) {
     NextDate = DecreaseDateByOneMonth(NextDate);
   }
   return NextDate;
 }
 
-sDate DecreaseDateByOneYear(sDate Date)
-{
+sDate DecreaseDateByOneYear(sDate Date) {
   Date.Year--;
   return Date;
 }
 
-sDate DecreaseDateByNumberOfYears(sDate Date, int Years)
-{
+sDate DecreaseDateByNumberOfYears(sDate Date, int Years) {
   sDate NextDate;
   NextDate = Date;
-  for (int i = 0; i < Years; i++)
-  {
+  for (int i = 0; i < Years; i++) {
     NextDate = DecreaseDateByOneYear(NextDate);
   }
   return NextDate;
 }
 
-sDate DecreaseDateByNumberOfYearsFaster(sDate Date, int Years)
-{
+sDate DecreaseDateByNumberOfYearsFaster(sDate Date, int Years) {
   Date.Year -= Years;
   return Date;
 }
 
-sDate DecreaseDateByOneDecade(sDate Date)
-{
+sDate DecreaseDateByOneDecade(sDate Date) {
   Date.Year -= 10;
   return Date;
 }
 
-sDate DecreaseDateByNumberOfDecades(sDate Date, int Decades)
-{
+sDate DecreaseDateByNumberOfDecades(sDate Date, int Decades) {
   Date.Year -= 10 * Decades;
   return Date;
 }
 
-sDate DecreaseDateByOneCentury(sDate Date)
-{
+sDate DecreaseDateByOneCentury(sDate Date) {
   Date.Year += 100;
   return Date;
 }
 
-sDate DecreaseDateByNumberOfCenturies(sDate Date, int Centuries)
-{
+sDate DecreaseDateByNumberOfCenturies(sDate Date, int Centuries) {
   Date.Year -= 100 * Centuries;
   return Date;
 }
 
-int main()
-{
+int main() {
   sDate Date;
   Date = ReadDate();
 
   // After One Day
   Date = DecreaseDateByOneDay(Date);
-  cout << "Before one day: " << Date.Year << "/" << Date.Month << "/" << Date.Day
-       << endl;
+  cout << "Before one day: " << Date.Year << "/" << Date.Month << "/"
+       << Date.Day << endl;
 
   // After 10 Days
   Date = DecreaseDateByNumberOfDays(Date, 10);
-  cout << "Before 10 days: " << Date.Year << "/" << Date.Month << "/" << Date.Day
-       << endl;
+  cout << "Before 10 days: " << Date.Year << "/" << Date.Month << "/"
+       << Date.Day << endl;
 
   // After One Week
   Date = DecreaseDateByOneWeek(Date);
