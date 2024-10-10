@@ -35,12 +35,7 @@ short DayOfWeekOrder(short day, short month, short year) {
 }
 
 short DayOfWeekOrder(sDate Date) {
-  int a = (14 - Date.Month) / 12;
-  int y = Date.Year - a;
-  int m = Date.Month + 12 * a - 2;
-
-  int d = (Date.Day + y + y / 4 - y / 100 + y / 400 + (31 * m) / 12) % 7;
-  return d;
+  return DayOfWeekOrder(Date.Day, Date.Month, Date.Year);
 }
 
 void PrintDate(short day, short month, short year) {
@@ -82,6 +77,7 @@ sDate IncreaseDateByOneDay(sDate Date) {
 
   return Date;
 }
+
 // bool IsDate1LessThanDate2(sDate Date1, sDate Date2)
 // {
 //     return (Date1.Year < Date2.Year ? true : ((Date1.Year == Date2.Year ?
@@ -153,20 +149,59 @@ string GetDayInWeek(short DatOrderInWeek) {
   return str;
 }
 
-bool isDayAWeekend(short Day) { return (Day == 0 || Day == 6); }
+bool isWeekEnd(short Day) { return Day == 6; }
+bool isDayAWeekend(short Day) { return (Day == 5 || Day == 6); }
+bool isBussinessDay(short Day) { return !isWeekEnd(Day); }
+
+short DaysUntilEndOfWeek(sDate Date) { return 6 - DayOfWeekOrder(Date); }
+
+short DaysUntilEndOfMonth(sDate Date) {
+  sDate EndOfMonthDate;
+  EndOfMonthDate.Day = NumberOfDaysInMonth(Date.Year, Date.Month);
+  EndOfMonthDate.Month = Date.Month;
+  EndOfMonthDate.Year = Date.Year;
+
+  return DifferenceInDays(Date, EndOfMonthDate, true);
+}
+
+short DaysUntilEndOfYear(sDate Date) {
+  sDate EndOfYearDate;
+  EndOfYearDate.Day = 31;
+  EndOfYearDate.Month = 12;
+  EndOfYearDate.Year = Date.Year;
+
+  return DifferenceInDays(Date, EndOfYearDate);
+}
 
 int main(void) {
-  sDate Date = GetDateFromSystem();
+  /*sDate Date = GetDateFromSystem();*/
+  sDate Date = ReadDate();
   short DayInWeek = DayOfWeekOrder(Date.Day, Date.Month, Date.Year);
   string DayInWeekStr = GetDayInWeek(DayInWeek);
+
   cout << "Today is: " << DayInWeekStr << ", " << Date.Day << "/" << Date.Month
        << "/" << Date.Year << endl;
 
-  cout << "\nIs this Day a weekend day? \n";
+  cout << "\nIs this Day a end of week? \n";
+  if (isWeekEnd(DayInWeek))
+    cout << "Yes" << endl;
+  else
+    cout << "No" << endl;
+
+  cout << "\nIs it a weekend?\n";
   if (isDayAWeekend(DayInWeek))
     cout << "Yes" << endl;
   else
     cout << "No" << endl;
 
+  cout << "\nIs it a bussiness day?\n";
+  if (isBussinessDay(DayInWeek))
+    cout << "Yes" << endl;
+  else
+    cout << "No" << endl;
+
+  cout << "\nDays until end of week: " << DaysUntilEndOfWeek(Date) << endl;
+  cout << "Days until end of month: " << DaysUntilEndOfMonth(Date) << endl;
+  cout << "Days until end of year: " << DaysUntilEndOfYera(Date) << endl;
   return 0;
 }
