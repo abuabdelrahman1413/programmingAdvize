@@ -202,6 +202,6 @@ int main(void) {
 
   cout << "\nDays until end of week: " << DaysUntilEndOfWeek(Date) << endl;
   cout << "Days until end of month: " << DaysUntilEndOfMonth(Date) << endl;
-  cout << "Days until end of year: " << DaysUntilEndOfYera(Date) << endl;
+  cout << "Days until end of year: " << DaysUntilEndOfYear(Date) << endl;
   return 0;
 }
