@@ -245,7 +245,8 @@ short ReadMainMenuOption() {
 }
 void GoBackToMainMenu() {
   cout << "Press any key to go back to Main Menu...";
-  system("pause");
+  cin.ignore();
+  cin.get();
   ShowMainMenu();
 }
 void ShowAllClientsScreen() {
@@ -300,25 +301,25 @@ void ShowUpdateClientScreen() {
 void PerformMainMenuOption(enMainMenuOptions MainMenuOption) {
   switch (MainMenuOption) {
   case enMainMenuOptions::eShowClientList: {
-    system("cls");
+    system("clear");
     ShowAllClientsScreen();
     GoBackToMainMenu();
     break;
   }
   case enMainMenuOptions::eAddNewClient: {
-    system("cls");
+    system("clear");
     ShowAddNewClientScreen();
     GoBackToMainMenu();
     break;
   }
   case enMainMenuOptions::eDeleteClient: {
-    system("cls");
+    system("clear");
     ShowDeleteClientScreen();
     GoBackToMainMenu();
     break;
   }
   case enMainMenuOptions::eUpdateClientInformation: {
-    system("cls");
+    system("clear");
     ShowUpdateClientScreen();
     GoBackToMainMenu();
     break;
@@ -328,10 +329,10 @@ void PerformMainMenuOption(enMainMenuOptions MainMenuOption) {
   }
   }
 
-  system("pause");
+  cin.get();
 }
 void ShowMainMenu() {
-  system("cls");
+  system("clear");
   cout << "=======================================================\n";
   cout << "\t\tMain Menu Screen\n";
   cout << "=======================================================\n";
@@ -346,6 +347,6 @@ void ShowMainMenu() {
 }
 int main() {
   ShowMainMenu();
-  system("pause");
+  cin.get();
   return 0;
 }
