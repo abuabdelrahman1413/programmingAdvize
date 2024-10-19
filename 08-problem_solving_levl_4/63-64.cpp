@@ -20,6 +20,7 @@ vector<string> split(string str, string delim)
 	vector<string> vSplit;
 	short pos = 0;
 	string word;
+  
 	while ((pos = str.find(delim)) != std::string::npos)
 	{
 		word = str.substr(0, pos);
