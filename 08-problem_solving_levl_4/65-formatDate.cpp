@@ -50,17 +50,7 @@ string joinString(vector<string> vString, string delim){
 
 string ReplaceWord(string str, string word, string newWord)
 {
-	vector<string> vString = split(str, " ");
-	for (string &s : vString)
-	{
-		if (s == word)
-		{
-			s = newWord;
-		}
-	}
-	
-	return joinString(vString, " ");
-
+  return str.replace(str.find(word), word.length(), newWord);
 }
 
 sDate StringToDate(string date) {
@@ -81,8 +71,8 @@ string DateToString(sDate Date) {
 string FormatDate(sDate Date, string format = "dd/mm/yyyy") {
   string ForamatedDate = "";
   ForamatedDate = ReplaceWord(format, "dd", to_string(Date.Day));
-//   ForamatedDate = ReplaceWord(ForamatedDate, "mm", to_string(Date.Month));
-//   ForamatedDate = ReplaceWord(ForamatedDate, "yy", to_string(Date.Year));
+  ForamatedDate = ReplaceWord(ForamatedDate, "mm", to_string(Date.Month));
+  ForamatedDate = ReplaceWord(ForamatedDate, "yyyy", to_string(Date.Year));
 
 return ForamatedDate;
 }
@@ -97,5 +87,6 @@ int main(void) {
     cout << "\n" << FormatDate(Date, "mm-dd-yyyy") << endl;
 
     cout << "\n" << FormatDate(Date, "Day: dd, Month: mm, Year: yyyy") << endl;
+	cin.get();
   return 0;
 }
