@@ -31,7 +31,7 @@ vector<string> split(string str, string delim)
 	}
 	if (str != "")
 	{
-		vSplit.push_back(word);
+		vSplit.push_back(str);
 	}
 	return vSplit;
 }
